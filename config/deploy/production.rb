@@ -1,10 +1,8 @@
-cerberus = '174.138.118.34'
-
 set :migration_role, :web
 
 set :password, ask('Server password', nil)
 
-server cerberus,
+server '174.138.118.34',
        user: 'cerberus',
        roles: %w[web],
        ssh_options: {
@@ -14,10 +12,10 @@ server cerberus,
        }
 
 namespace :deploy do
-  after :updated, :build do
+  after :updated, :build_static_files do
     on roles :web do
       within current_path.to_s do
-        execute 'bundle exec middleman build --clean'
+        execute :bundle, :exec, :middleman, :build, '--clean'
       end
     end
   end
