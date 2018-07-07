@@ -12,5 +12,6 @@ gem 'nokogiri', '~> 1.6.8'
 
 group :development do
   gem 'capistrano', '~> 3.11'
+  gem 'capistrano-bundler'
   gem 'capistrano-rvm'
 end
