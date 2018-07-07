@@ -1,239 +1,159 @@
 ---
-title: API Reference
+title: Cryptocurrency Realtime API - Faws
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
-  - ruby
-  - python
-  - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
+  - <a href='https://faws.com'>Faws.com</a>
 
-includes:
-  - errors
+<!-- includes:
+  - errors -->
 
 search: true
 ---
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+This is the documentation for Faws.com widgets and api.
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+API access is public, and does not require authentication
 
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
+# API
 
-# Authentication
+## Currencies
 
-> To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
+Returns list of all available currencies
 
 ```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+curl 'https://api.faws.com/v1/currencies'
 ```
 
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
+> On success, this endpoint returns a JSON response like this:
 
 ```json
 [
   {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
+    "id": "monetha",
+    "name": "Monetha",
+    "ticker": "MTH"
+    },
   {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+    ...another currency object
   }
 ]
 ```
 
-This endpoint retrieves all kittens.
+### Endpoint url
 
-### HTTP Request
+`GET https://api.faws.com/v1/currencies`
 
-`GET http://example.com/api/kittens`
+### JSON Response
 
-### Query Parameters
+Returns an array of JSON object
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+| Key        | Type   | Description      |
+| ---------- | ------ | ---------------- |
+| **id**     | string | Currency ID.     |
+| **name**   | string | Currency name.   |
+| **ticker** | string | Currency ticker. |
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
+## Tickers
 
-## Get a Specific Kitten
+Get data about given currency.
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
+If no id is specified, will return all currencies.
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
+curl 'https://api.faws.com/v1/tickers'
 ```
 
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
+> On success, this endpoint returns a JSON response like this:
 
 ```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
+[
+  {
+    "id": "bitcoin",
+    "name": "Bitcoin",
+    "ticker": "BTC",
+    "last_traded_usd": 8297.61333321833,
+    "last_traded_btc": null,
+    "variation_usd": 0.02,
+    "variation_btc": 0,
+    "market_cap": 137851404491,
+    "volume_24h": 4395510000
+    },
+  {
+    ...another ticker object
+  }
+]
 ```
 
-This endpoint retrieves a specific kitten.
+### Endpoint url
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+`GET https://api.faws.com/v1/tickers`
 
-### HTTP Request
+To get only specific currencies:
 
-`GET http://example.com/kittens/<ID>`
+`GET https://api.faws.com/v1/tickers?id=bitcoin,neo`
 
-### URL Parameters
+See [currencies](#currencies) to retrieve list of supported IDs.
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
+### Query parameters
 
-## Delete a Specific Kitten
+| Key    | Type   | Mandatory | Description                         |
+| ------ | ------ | --------- | ----------------------------------- |
+| **id** | string | `false`   | Comma separated list of currency ID |
 
-```ruby
-require 'kittn'
+### JSON Response
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
+Returns an array of JSON object
 
-```python
-import kittn
+| Key                 | Type   | Description                                          |
+| ------------------- | ------ | ---------------------------------------------------- |
+| **id**              | string | Currency ID.                                         |
+| **name**            | string | Currency name.                                       |
+| **ticker**          | string | Currency ticker.                                     |
+| **last_traded_usd** | float  | Last traded price in USD.                            |
+| **last_traded_btc** | float  | Last traded price in BTC.                            |
+| **variation_usd**   | float  | USD price percentage variation since midnight UTC+0. |
+| **variation_btc**   | float  | BTC price percentage variation since midnight UTC+0. |
+| **market_cap**      | float  | Market cap in USD.                                   |
+| **volume_24h**      | float  | Past 24 volume.                                      |
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
+# Widgets
 
-```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
-```
+## Simple price
 
-```javascript
-const kittn = require('kittn');
+Display a cryptocurrency price widget.
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
+### Step 1
 
-> The above command returns JSON structured like this:
+Insert the following js code before your `</body>` closing tag.
 
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
+`<script src="https://wdg.faws.com/simple_price.js"></script>`
 
-This endpoint deletes a specific kitten.
+If you are inserting multiple widgets in the same page, the tag above need to be
+inserted only once.
 
-### HTTP Request
+### Step 2
 
-`DELETE http://example.com/kittens/<ID>`
+Insert and customize the following tag where you want to display the widget
 
-### URL Parameters
+`<div class="faws-wdg simple-price" data-ticker="btc"
+data-currence="usd"></div>`
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+#### Attributes
 
+| Attribute         | Mandatory | Description                                                                                                        |
+| ----------------- | --------- | ------------------------------------------------------------------------------------------------------------------ |
+| **class**         | `true`    | `faws-wdg simple-price` are required in order to initialize the widget. You can add additonal classes if you want. |
+| **data-ticker**   | `true`    | Ticker of the cryptocurrency                                                                                       |
+| **data-currency** | `false`   | Price currency. Either `usd` or `btc`. Default is `usd`.                                                           |
+
+### Result
+
+<div class="faws-wdg simple-price" data-ticker="btc" ></div>
+<script src="https://wdg.faws.com/simple_price.js"></script>
+
+.
