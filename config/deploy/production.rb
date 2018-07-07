@@ -16,7 +16,9 @@ server cerberus,
 namespace :deploy do
   after :updated, :build do
     on roles :web do
-      execute 'bundle exec middleman build --clean'
+      within current_path.to_s do
+        execute 'bundle exec middleman build --clean'
+      end
     end
   end
 end
