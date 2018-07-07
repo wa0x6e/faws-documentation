@@ -6,9 +6,9 @@ set :password, ask('Server password', nil)
 
 server cerberus,
        user: 'cerberus',
-       roles: %w(web),
+       roles: %w[web],
        ssh_options: {
          user: 'cerberus',
          forward_agent: true,
-         auth_methods: %w(publickey)
+         auth_methods: %w[publickey]
        }
