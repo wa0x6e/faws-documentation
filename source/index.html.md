@@ -121,6 +121,45 @@ Returns an array of JSON object
 | **market_cap**      | float  | Market cap in USD.                                   |
 | **volume_24h**      | float  | Past 24 volume.                                      |
 
+## Categories
+
+Get list of all available categories
+
+```shell
+curl 'https://api.faws.com/v1/categories'
+```
+
+> On success, this endpoint returns a JSON response like this:
+
+```json
+[
+  {
+    "id": 1,
+    "name": "News",
+    },
+  {
+    ...another category object
+  }
+]
+```
+
+### Endpoint url
+
+`GET https://api.faws.com/v1/categories`
+
+### Query parameters
+
+This endpoint does not accept parameters.
+
+### JSON Response
+
+Returns an array of JSON object
+
+| Key      | Type   | Description    |
+| -------- | ------ | -------------- |
+| **id**   | string | Category ID.   |
+| **name** | string | Category name. |
+
 # Widgets
 
 ## Simple price
@@ -140,8 +179,7 @@ inserted only once.
 
 Insert and customize the following tag where you want to display the widget
 
-`<div class="faws-wdg simple-price" data-ticker="btc"
-data-currence="usd"></div>`
+`<div class="faws-wdg simple-price" data-ticker="btc" data-currence="usd"></div>`
 
 #### Attributes
 
