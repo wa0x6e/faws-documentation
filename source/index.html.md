@@ -121,6 +121,55 @@ Returns an array of JSON object
 | **market_cap**      | float  | Market cap in USD.                                   |
 | **volume_24h**      | float  | Past 24 volume.                                      |
 
+## News
+
+Get a list of news, filtered by given parameters.
+
+If no params specified, will return the last 25 news. Results are always sorted by publish time, most recent first.
+
+```shell
+curl 'https://api.faws.com/v1/news'
+```
+
+> On success, this endpoint returns a JSON response like this:
+
+```json
+[
+  {
+    "id": 517,
+    "title": "The U.S. Government Is Auctioning Off Almost 30,000 Bitcoins",
+    "url": "http://mashable.com/2014/06/27/government-bitcoin-auction/",
+    "faws_url": "https://faws.com/news/517",
+    "publish_time": "2014-06-27T19:51:19.000Z"
+  },
+  {
+    ...another news object
+  }
+]
+```
+
+### Query parameters
+
+| Key            | Type            | Example      | Default        | Description                                                                                           |
+| -------------- | --------------- | ------------ | -------------- | ----------------------------------------------------------------------------------------------------- |
+| **locales**    | List of string  | `en,fr`      | `en`           | Comma separated list of 2-letter locale code                                                          |
+| **categories** | List of integer | `1,2`        | all categories | Comma separated list of categories ID. See [categories](#categories) for list of available categories |
+| **start_date** | timestamp       | `946684800`  | `null`         | Lower bound returned news publish time                                                                |
+| **end_date**   | timestamp       | `1545202141` | `null`         | Upper bound returned news publish time                                                                |
+| **limit**      | integer         | `100`        | `25`           | Number of results returned for each page. Max is `100`                                                |
+
+### JSON Response
+
+Returns an array of JSON object
+
+| Key              | Type     | Description             |
+| ---------------- | -------- | ----------------------- |
+| **id**           | integer  | Faws.com internal ID    |
+| **title**        | string   | News title              |
+| **url**          | string   | Original url to news    |
+| **faws_url**     | string   | News' faws.com url      |
+| **publish_time** | datetime | ISO-8601 formatted time |
+
 ## Categories
 
 Get list of all available categories
