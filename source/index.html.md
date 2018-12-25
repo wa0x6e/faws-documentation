@@ -228,7 +228,7 @@ inserted only once.
 
 Insert and customize the following tag where you want to display the widget
 
-`<div class="faws-wdg simple-price" data-ticker="btc" data-currence="usd"></div>`
+`<div class="faws-wdg simple-price" data-ticker="btc" data-currency="usd"></div>`
 
 #### Attributes
 
@@ -238,9 +238,13 @@ Insert and customize the following tag where you want to display the widget
 | **data-ticker**   | `true`    | Ticker of the cryptocurrency                                                                                       |
 | **data-currency** | `false`   | Price currency. Either `usd` or `btc`. Default is `usd`.                                                           |
 
+#### Available currencies list
+
+See [currencies](#currencies)
+
 ### Result
 
+<div style="margin: 30px">
 <div class="faws-wdg simple-price" data-ticker="btc" ></div>
 <script src="https://wdg.faws.com/simple_price.js"></script>
-
-.
+</div>
