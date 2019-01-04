@@ -1,0 +1,610 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Cryptocurrency Realtime API - Faws</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;shell&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="images/logo.png" class="logo" alt="Logo" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="shell">shell</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <div id="toc" class="toc-list-h1">
+          <li>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#api" class="toc-h1 toc-link" data-title="API">API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#currencies" class="toc-h2 toc-link" data-title="Currencies">Currencies</a>
+                  </li>
+                  <li>
+                    <a href="#tickers" class="toc-h2 toc-link" data-title="Tickers">Tickers</a>
+                  </li>
+                  <li>
+                    <a href="#news" class="toc-h2 toc-link" data-title="News">News</a>
+                  </li>
+                  <li>
+                    <a href="#categories" class="toc-h2 toc-link" data-title="Categories">Categories</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#widgets" class="toc-h1 toc-link" data-title="Widgets">Widgets</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#simple-price" class="toc-h2 toc-link" data-title="Simple price">Simple price</a>
+                  </li>
+              </ul>
+          </li>
+      </div>
+        <ul class="toc-footer">
+            <li><a href='https://faws.com'>Faws.com</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='introduction'>Introduction</h1>
+<p><strong>This API version is deprecated, and may stopped working. Please use <a href="/api/v2">the new v2 API from now</a>.</strong></p>
+
+<p>This is the documentation for Faws.com widgets and api.</p>
+
+<p>API access is public, and does not require authentication</p>
+<h1 id='api'>API</h1><h2 id='currencies'>Currencies</h2>
+<p>Returns list of all available currencies</p>
+<pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.faws.com/v1/currencies'</span>
+</code></pre>
+<blockquote>
+<p>On success, this endpoint returns a JSON response like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"monetha"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Monetha"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ticker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MTH"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="err">...another</span><span class="w"> </span><span class="err">currency</span><span class="w"> </span><span class="err">object</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre><h3 id='endpoint-url'>Endpoint url</h3>
+<p><code>GET https://api.faws.com/v1/currencies</code></p>
+<h3 id='json-response'>JSON Response</h3>
+<p>Returns an array of JSON object</p>
+
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>id</strong></td>
+<td>string</td>
+<td>Currency ID.</td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td>string</td>
+<td>Currency name.</td>
+</tr>
+<tr>
+<td><strong>ticker</strong></td>
+<td>string</td>
+<td>Currency ticker.</td>
+</tr>
+</tbody></table>
+<h2 id='tickers'>Tickers</h2>
+<p>Get data about given currency.</p>
+
+<p>If no id is specified, will return all currencies.</p>
+<pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.faws.com/v1/tickers'</span>
+</code></pre>
+<blockquote>
+<p>On success, this endpoint returns a JSON response like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bitcoin"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bitcoin"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ticker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_traded_usd"</span><span class="p">:</span><span class="w"> </span><span class="mf">8297.61333321833</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_traded_btc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"variation_usd"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.02</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"variation_btc"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"market_cap"</span><span class="p">:</span><span class="w"> </span><span class="mi">137851404491</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"volume_24h"</span><span class="p">:</span><span class="w"> </span><span class="mi">4395510000</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="err">...another</span><span class="w"> </span><span class="err">ticker</span><span class="w"> </span><span class="err">object</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre><h3 id='endpoint-url-2'>Endpoint url</h3>
+<p><code>GET https://api.faws.com/v1/tickers</code></p>
+
+<p>To get only specific currencies:</p>
+
+<p><code>GET https://api.faws.com/v1/tickers?id=bitcoin,neo</code></p>
+
+<p>See <a href="#currencies">currencies</a> to retrieve list of supported IDs.</p>
+<h3 id='query-parameters'>Query parameters</h3>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>id</strong></td>
+<td>string</td>
+<td><code>false</code></td>
+<td>Comma separated list of currency ID</td>
+</tr>
+</tbody></table>
+<h3 id='json-response-2'>JSON Response</h3>
+<p>Returns an array of JSON object</p>
+
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>id</strong></td>
+<td>string</td>
+<td>Currency ID.</td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td>string</td>
+<td>Currency name.</td>
+</tr>
+<tr>
+<td><strong>ticker</strong></td>
+<td>string</td>
+<td>Currency ticker.</td>
+</tr>
+<tr>
+<td><strong>last_traded_usd</strong></td>
+<td>float</td>
+<td>Last traded price in USD.</td>
+</tr>
+<tr>
+<td><strong>last_traded_btc</strong></td>
+<td>float</td>
+<td>Last traded price in BTC.</td>
+</tr>
+<tr>
+<td><strong>variation_usd</strong></td>
+<td>float</td>
+<td>USD price percentage variation since midnight UTC+0.</td>
+</tr>
+<tr>
+<td><strong>variation_btc</strong></td>
+<td>float</td>
+<td>BTC price percentage variation since midnight UTC+0.</td>
+</tr>
+<tr>
+<td><strong>market_cap</strong></td>
+<td>float</td>
+<td>Market cap in USD.</td>
+</tr>
+<tr>
+<td><strong>volume_24h</strong></td>
+<td>float</td>
+<td>Past 24 volume.</td>
+</tr>
+</tbody></table>
+<h2 id='news'>News</h2>
+<p>Get a list of news, filtered by given parameters.</p>
+
+<p>If no params specified, will return the last 25 news. Results are always sorted by publish time, most recent first.</p>
+<pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.faws.com/v1/news'</span>
+</code></pre>
+<blockquote>
+<p>On success, this endpoint returns a JSON response like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">517</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The U.S. Government Is Auctioning Off Almost 30,000 Bitcoins"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://mashable.com/2014/06/27/government-bitcoin-auction/"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"faws_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://faws.com/news/517"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"publish_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-06-27T19:51:19.000Z"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="err">...another</span><span class="w"> </span><span class="err">news</span><span class="w"> </span><span class="err">object</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre><h3 id='query-parameters-2'>Query parameters</h3>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Example</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>locales</strong></td>
+<td>List of string</td>
+<td><code>en,fr</code></td>
+<td><code>en</code></td>
+<td>Comma separated list of 2-letter locale code</td>
+</tr>
+<tr>
+<td><strong>categories</strong></td>
+<td>List of integer</td>
+<td><code>1,2</code></td>
+<td>all categories</td>
+<td>Comma separated list of categories ID. See <a href="#categories">categories</a> for list of available categories</td>
+</tr>
+<tr>
+<td><strong>start_date</strong></td>
+<td>timestamp</td>
+<td><code>946684800</code></td>
+<td><code>null</code></td>
+<td>Lower bound returned news publish time</td>
+</tr>
+<tr>
+<td><strong>end_date</strong></td>
+<td>timestamp</td>
+<td><code>1545202141</code></td>
+<td><code>null</code></td>
+<td>Upper bound returned news publish time</td>
+</tr>
+<tr>
+<td><strong>limit</strong></td>
+<td>integer</td>
+<td><code>100</code></td>
+<td><code>25</code></td>
+<td>Number of results returned for each page. Max is <code>100</code></td>
+</tr>
+</tbody></table>
+<h3 id='json-response-3'>JSON Response</h3>
+<p>Returns an array of JSON object</p>
+
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>id</strong></td>
+<td>integer</td>
+<td>Faws.com internal ID</td>
+</tr>
+<tr>
+<td><strong>title</strong></td>
+<td>string</td>
+<td>News title</td>
+</tr>
+<tr>
+<td><strong>url</strong></td>
+<td>string</td>
+<td>Original url to news</td>
+</tr>
+<tr>
+<td><strong>faws_url</strong></td>
+<td>string</td>
+<td>News&#39; faws.com url</td>
+</tr>
+<tr>
+<td><strong>publish_time</strong></td>
+<td>datetime</td>
+<td>ISO-8601 formatted time</td>
+</tr>
+</tbody></table>
+<h2 id='categories'>Categories</h2>
+<p>Get list of all available categories</p>
+<pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.faws.com/v1/categories'</span>
+</code></pre>
+<blockquote>
+<p>On success, this endpoint returns a JSON response like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"News"</span><span class="p">,</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="err">...another</span><span class="w"> </span><span class="err">category</span><span class="w"> </span><span class="err">object</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre><h3 id='endpoint-url-3'>Endpoint url</h3>
+<p><code>GET https://api.faws.com/v1/categories</code></p>
+<h3 id='query-parameters-3'>Query parameters</h3>
+<p>This endpoint does not accept parameters.</p>
+<h3 id='json-response-4'>JSON Response</h3>
+<p>Returns an array of JSON object</p>
+
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>id</strong></td>
+<td>string</td>
+<td>Category ID.</td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td>string</td>
+<td>Category name.</td>
+</tr>
+</tbody></table>
+<h1 id='widgets'>Widgets</h1><h2 id='simple-price'>Simple price</h2>
+<p>Display a cryptocurrency price widget.</p>
+<h3 id='step-1'>Step 1</h3>
+<p>Insert the following js code before your <code>&lt;/body&gt;</code> closing tag.</p>
+
+<p><code>&lt;script src=&quot;https://wdg.faws.com/simple_price.js&quot;&gt;&lt;/script&gt;</code></p>
+
+<p>If you are inserting multiple widgets in the same page, the tag above need to be
+inserted only once.</p>
+<h3 id='step-2'>Step 2</h3>
+<p>Insert and customize the following tag where you want to display the widget</p>
+
+<p><code>&lt;div class=&quot;faws-wdg simple-price&quot; data-ticker=&quot;btc&quot; data-currency=&quot;usd&quot;&gt;&lt;/div&gt;</code></p>
+<h4 id='attributes'>Attributes</h4>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>class</strong></td>
+<td><code>true</code></td>
+<td><code>faws-wdg simple-price</code> are required in order to initialize the widget. You can add additonal classes if you want.</td>
+</tr>
+<tr>
+<td><strong>data-ticker</strong></td>
+<td><code>true</code></td>
+<td>Ticker of the cryptocurrency</td>
+</tr>
+<tr>
+<td><strong>data-currency</strong></td>
+<td><code>false</code></td>
+<td>Price currency. Either <code>usd</code> or <code>btc</code>. Default is <code>usd</code>.</td>
+</tr>
+</tbody></table>
+<h4 id='available-currencies-list'>Available currencies list</h4>
+<p>See <a href="#currencies">currencies</a></p>
+<h3 id='result'>Result</h3>
+<div style="margin: 30px">
+<div class="faws-wdg simple-price" data-ticker="btc" ></div>
+<script src="https://wdg.faws.com/simple_price.js"></script>
+</div>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="shell">shell</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
