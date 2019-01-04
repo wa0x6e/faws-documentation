@@ -1,0 +1,19 @@
+.alert {
+  padding: 7px 15px;
+  margin: 15px 0;
+  border: 1px solid transparent;
+  border-left: 3px solid transparent;
+  border-radius: 2px;
+}
+
+.alert-danger {
+  color: rgba(0, 0, 0, 0.65);
+  background: #fff1f0;
+  border-color: #ffa39e;
+}
+
+.alert-info {
+  color: rgba(0, 0, 0, 0.65);
+  background: #e6f7ff;
+  border-color: #91d5ff;
+}
