@@ -2,7 +2,7 @@ set :migration_role, :web
 
 set :password, ask('Server password', nil)
 
-server '174.138.118.34',
+server '176.31.100.177',
        user: 'cerberus',
        roles: %w[web],
        ssh_options: {
